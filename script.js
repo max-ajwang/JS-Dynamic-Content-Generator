@@ -77,6 +77,20 @@ function showQuote() {
 function showRiddle() {
   // Value should be in format: { question: '', answer: '' }
   const randomRiddle = getRandomData("riddles");
+  const { question, answer } = randomRiddle;
+
+  const questionElement = document.createElement('p');
+  questionElement.textContent = question;
+
+  const answerElement = document.createElement('p');
+  answerElement.textContent = answer;
+  answerElement.setAttribute('id', 'riddle-answer');
+  answerElement.hidden = true;
+
+  clearAll();
+
+  document.querySelector('.riddle-content').appendChild(questionElement).appendChild(answerElement);
+
 }
 
 /**
@@ -86,7 +100,19 @@ function showRiddle() {
  *   that the answer is already revealed
  * - If there is a riddle shown but no answer, unhide the answer!
  */
-function revealAnswers() { }
+function revealAnswers() {
+  const riddleContainer = document.querySelector('.riddle-content');
+  const riddle = riddleContainer.querySelector('p');
+  const answer = document.querySelector('#riddle-answer');
+
+  if(riddle && answer.hidden) {
+    answer.hidden = false;
+  } else if(riddle) {
+    alert('The answer is alredy revealed')
+  } else {
+    alert('There is no riddle to reveal an answer to!')
+  }
+}
 
 /**
  * This function is used to get random data.  Don't worry about how it works, just know how to use it.  Usage is pre-filled in the functions above already, but here's an explanation of the function anyways.
